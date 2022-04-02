@@ -12,11 +12,12 @@ import java.util.ArrayList;
  * Find the first occurance of W in S, if not found then return -1.
  */
 public class KnuthMorrisPratt {
-  public static int findMatch(String S, String W) {
-    int ret = -1;
+  private final ArrayList<Integer> T;
+  private final String W;
 
-    // The lookup table.
-    ArrayList<Integer> T = new ArrayList<>(W.length());
+  public KnuthMorrisPratt(final String W) {
+    this.W = W;
+    this.T = new ArrayList<>(W.length());
     for (int i = 0; i < W.length(); i++) {
       T.add(0);
     }
@@ -41,6 +42,11 @@ public class KnuthMorrisPratt {
       pos++;
       cnd++;
     }
+  }
+
+
+  public int findMatch(String S) {
+    int ret = -1;
 
     // Now search S for W.
     int j = 0;
@@ -59,8 +65,19 @@ public class KnuthMorrisPratt {
         }
       }
     }
-
     return ret;
   }
 
+  @Override
+  public String toString() {
+    String res=  "KnuthMorrisPratt{" +
+        " W=\"" + W +"\"\n";
+
+    for(int i = 0; i < T.size(); i++) {
+      res += i + " : " + W.charAt(i) + " : " + T.get(i) + "\n";
+    }
+
+    res += '}';
+    return res;
+  }
 }
